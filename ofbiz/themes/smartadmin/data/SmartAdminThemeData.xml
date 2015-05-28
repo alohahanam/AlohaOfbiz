@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+-Licensed to the Apache Software Foundation (ASF) under one
+-or more contributor license agreements.  See the NOTICE file
+-distributed with this work for additional information
+-regarding copyright ownership.  The ASF licenses this file
+-to you under the Apache License, Version 2.0 (the
+-"License"); you may not use this file except in compliance
+-with the License.  You may obtain a copy of the License at
+-
+-http://www.apache.org/licenses/LICENSE-2.0
+-
+-Unless required by applicable law or agreed to in writing,
+-software distributed under the License is distributed on an
+-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+-KIND, either express or implied.  See the License for the
+-specific language governing permissions and limitations
+-under the License.
+--->
+
+<entity-engine-xml>
+  <VisualTheme visualThemeId="SMARTADMIN" visualThemeSetId="BACKOFFICE" description="Smart admin"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_NAME" resourceValue="SMARTADMIN" sequenceId="01"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/bootstrap.min.css" sequenceId="01"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/demo.min.css" sequenceId="02"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/font-awesome.min.css" sequenceId="03"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/invoice.min.css" sequenceId="04"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/lockscreen.min.css" sequenceId="05"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/smartadmin-production-plugins.min.css" sequenceId="06"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/smartadmin-production.min.css" sequenceId="07"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/smartadmin-rtl.min.css" sequenceId="08"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/smartadmin-skins.min.css" sequenceId="09"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/smartadmin/js/bootstrap/bootstrap.min.js" sequenceId="01"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://smartadmin/webapp/smartadmin/includes/header.ftl" sequenceId="01"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://smartadmin/webapp/smartadmin/includes/footer.ftl" sequenceId="02"/>
+</entity-engine-xml>
