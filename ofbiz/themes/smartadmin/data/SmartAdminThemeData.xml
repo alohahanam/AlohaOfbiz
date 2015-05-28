@@ -31,6 +31,8 @@
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/smartadmin-rtl.min.css" sequenceId="08"/>
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smartadmin/css/smartadmin-skins.min.css" sequenceId="09"/>
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/smartadmin/js/bootstrap/bootstrap.min.js" sequenceId="01"/>
-  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://smartadmin/webapp/smartadmin/includes/header.ftl" sequenceId="01"/>
-  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://smartadmin/webapp/smartadmin/includes/footer.ftl" sequenceId="02"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://smartadmin/includes/header.ftl" sequenceId="01"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://smartadmin/includes/footer.ftl" sequenceId="02"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://smartadmin/includes/appbarOpen.ftl" sequenceId="03"/>
+  <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://smartadmin/includes/appbarClose.ftl" sequenceId="04"/>
 </entity-engine-xml>
