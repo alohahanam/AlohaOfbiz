@@ -178,9 +178,9 @@ under the License.
                             <condition>
                                 <if-has-permission permission="ENTITY_MAINT"/>
                             </condition>
-                            <widgets>
+                          <!--   <widgets>
                                 <include-menu name="importExportTabBar" location="component://webtools/widget/Menus.xml"/>
-                            </widgets>
+                            </widgets> -->
                         </section>
                     </decorator-section>
                     <decorator-section name="body">

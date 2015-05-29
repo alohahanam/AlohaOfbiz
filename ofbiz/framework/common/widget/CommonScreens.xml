@@ -189,8 +189,6 @@ under the License.
                         <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" />
                         <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" />
                         <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]" />
-                        <set field="appbarOpenTemplateLocation" from-field="layoutSettings.VT_NAV_OPEN_TMPLT[0]" />
-                        <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT[0]" />
                         <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" />
                         <set field="layoutSettings.suppressTab" value="ofbizsetup"/><!-- diseable ofbiz setup by default -->
                     </actions>
@@ -268,7 +266,7 @@ under the License.
                                                 <label style="apptitle">${parameters.applicationTitle}</label>
                                             </widgets>
                                         </section>
-                                        <section>
+                                        <!-- <section>
                                             <condition>
                                                 <not>
                                                     <if-empty field="applicationMenuLocation" />
@@ -277,7 +275,7 @@ under the License.
                                             <widgets>
                                                 <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}" />
                                             </widgets>
-                                        </section>
+                                        </section> -->
                                     </fail-widgets>
                                 </section>
                             </widgets>
@@ -312,31 +310,11 @@ under the License.
                     </html>
                 </platform-specific>
                 <!-- render content area -->
-                <container style="contentarea">
-                    <decorator-section-include name="pre-body" />
-                    <container id="column-container">
-                        <section>
-                            <condition>
-                                <if-empty-section section-name="left-column" />
-                            </condition>
-                            <widgets>
-                                <container id="content-main-section">
-                                    <decorator-section-include name="body" />
-                                </container>
-                            </widgets>
-                            <fail-widgets>
-                                <container style="left">
-                                    <decorator-section-include name="left-column" />
-                                </container>
-                                <container id="content-main-section" style="leftonly">
-                                    <container style="no-clear" id="centerdiv">
-                                        <decorator-section-include name="body" />
-                                    </container>
-                                </container>
-                            </fail-widgets>
-                        </section>
-                        <container style="clear"></container>
-                    </container>
+                <container id="main">
+                	<include-screen name="ribbon" />
+                	<container id="content">
+                		<decorator-section-include name="body" />
+                	</container>
                 </container>
                 <section>
                     <condition>
@@ -577,7 +555,19 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+	
+	<screen name="ribbon">
+		<section>
+			<widgets>
+				<platform-specific>
+					<html>
+						<html-template location="component://smartadmin/includes/ribbon.ftl" />
+					</html>
+				</platform-specific>
+			</widgets>
+		</section>
+	</screen>
+	
     <screen name="ajaxNotLoggedIn">
         <section>
             <widgets>

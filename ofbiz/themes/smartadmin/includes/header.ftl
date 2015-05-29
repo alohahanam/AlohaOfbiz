@@ -16,114 +16,295 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)?if_exists}</#if></title>
+    <#if layoutSettings.javaScripts?has_content>
+        <#--layoutSettings.javaScripts is a list of java scripts. -->
+        <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
+        <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
+        <#list layoutSettings.javaScripts as javaScript>
+            <#if javaScriptsSet.contains(javaScript)>
+                <#assign nothing = javaScriptsSet.remove(javaScript)/>
+                <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
+            </#if>
+        </#list>
+    </#if>
+    <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
+        <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
+            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
+        </#list>
+    </#if>
+    <#if layoutSettings.VT_STYLESHEET?has_content>
+        <#list layoutSettings.VT_STYLESHEET as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
+    <#if layoutSettings.styleSheets?has_content>
+        <#--layoutSettings.styleSheets is a list of style sheets. So, you can have a user-specified "main" style sheet, AND a component style sheet.-->
+        <#list layoutSettings.styleSheets as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
+    <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
+        <#--layoutSettings.rtlStyleSheets is a list of rtl style sheets.-->
+        <#list layoutSettings.rtlStyleSheets as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
+    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && langDir == "rtl">
+        <#list layoutSettings.VT_RTL_STYLESHEET as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
+    <#if layoutSettings.VT_EXTRA_HEAD?has_content>
+        <#list layoutSettings.VT_EXTRA_HEAD as extraHead>
+            ${extraHead}
+        </#list>
+    </#if>
+    <#if layoutSettings.WEB_ANALYTICS?has_content>
+      <script language="JavaScript" type="text/javascript">
+        <#list layoutSettings.WEB_ANALYTICS as webAnalyticsConfig>
+          ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode?if_exists)}
+        </#list>
+      </script>
+    </#if>
+</head>
+<body >
+<div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="width: 100%;">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+    <header id="header">
+			<div id="logo-group">
 
-<!-- Global IE fix to avoid layout crash when single word size wider than column width -->
-<!--[if IE]><style type="text/css"> body {word-wrap: break-word;}</style><![endif]-->
+				<!-- PLACE YOUR LOGO HERE -->
+				<span id="logo"> <img src="/smartadmin/img/logo.png" alt="SmartAdmin"> </span>
+				<!-- END LOGO PLACEHOLDER -->
 
-  <div id="wait-spinner" style="display:none">
-    <div id="wait-spinner-image"></div>
-  </div>
-  <div class="page-container">
-    <div class="header">
-      <div class="header-top">
+				<!-- Note: The activity badge color changes when clicked and resets the number to 0
+				Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
+				<span id="activity" class="activity-dropdown"> <i class="fa fa-user"></i> <b class="badge bg-color-red bounceIn animated"> 21 </b> </span>
 
-        <!-- Sitelogo and sitename -->
-        <a class="sitelogo" href="<@ofbizUrl>main</@ofbizUrl>" title="${uiLabelMap.CommonMain}"></a>
-        <div class="sitename">
-          <#if !productStore??>
-            <h1><a href="<@ofbizUrl>main</@ofbizUrl>" title="Go to Start page">${uiLabelMap.EcommerceNoProductStore}</a></h1>
-          </#if>
-          <#if (productStore.title)??><h1><a href="<@ofbizUrl>main</@ofbizUrl>" title="Go to Start page">${productStore.title}</a></h1></#if>
-          <#if (productStore.subtitle)??><h2>${productStore.subtitle}</h2></#if>
-        </div>
+				<!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
+				<div class="ajax-dropdown">
 
-        <!-- Navigation Level 0 -->
-        <div class="nav0">
-          <ul>
-            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=it</@ofbizUrl>"><img src="/multiflex/flag_it.gif" alt="" /></a></li>
-            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=en</@ofbizUrl>"><img src="/multiflex/flag_en.gif" alt="" /></a></li>
-            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=de</@ofbizUrl>"><img src="/multiflex/flag_de.gif" alt="" /></a></li>
-            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=fr</@ofbizUrl>"><img src="/multiflex/flag_fr.gif" alt="" /></a></li>
-          </ul>
-        </div>
+					<!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
+					<div class="btn-group btn-group-justified" data-toggle="buttons">
+						<label class="btn btn-default">
+							<input type="radio" name="activity" id="ajax/notify/mail.html">
+							Msgs (14) </label>
+						<label class="btn btn-default">
+							<input type="radio" name="activity" id="ajax/notify/notifications.html">
+							notify (3) </label>
+						<label class="btn btn-default">
+							<input type="radio" name="activity" id="ajax/notify/tasks.html">
+							Tasks (4) </label>
+					</div>
 
-        <!-- Navigation Level 1 -->
-        <div class="nav1">
-          <ul>
-            <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonMain}</a></li>
-            <li><a href="<@ofbizUrl>contactus</@ofbizUrl>">${uiLabelMap.CommonContactUs}</a></li>
-            <li><a href="<@ofbizUrl>policies</@ofbizUrl>">${uiLabelMap.EcommerceSeeStorePoliciesHere}</a></li>
-          </ul>
-        </div>
-      </div>
+					<!-- notification content -->
+					<div class="ajax-notifications custom-scroll">
 
-      <!-- A.2 HEADER MIDDLE -->
-      <div class="header-middle">
-        <!-- Site message -->
-        <div class="sitemessage">
-          <h1>EASY &bull; FLEXIBLE &bull; ROBUST</h1>
-          <h2>
-          <#if sessionAttributes.autoName?has_content>
-            ${uiLabelMap.CommonWelcome}&nbsp;${sessionAttributes.autoName}!
-            (${uiLabelMap.CommonNotYou}?&nbsp;<a href="<@ofbizUrl>autoLogout</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)
-          <#else/>
-            ${uiLabelMap.CommonWelcome}!
-          </#if>
-          </h2>
-          <h3><a href="#">&rsaquo;&rsaquo;&nbsp;More details</a></h3>
-        </div>
-      </div>
+						<div class="alert alert-transparent">
+							<h4>Click a button to show messages here</h4>
+							This blank page message helps protect your privacy, or you can show the first message here automatically.
+						</div>
 
-      <!-- A.3 HEADER BOTTOM -->
-      <div class="header-bottom">
+						<i class="fa fa-lock fa-4x fa-border"></i>
 
-        <!-- Navigation Level 2 (Drop-down menus) -->
-        <div class="nav2">
+					</div>
+					<!-- end notification content -->
 
-          <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
-            <!-- Navigation item -->
-            <ul>
-              <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
-            </ul>
-          <#else/>
-            <!-- Navigation item -->
-            <ul>
-              <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
-            </ul>
+					<!-- footer: refresh area -->
+					<span> Last updated on: 12/12/2013 9:43AM
+						<button type="button" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Loading..." class="btn btn-xs btn-default pull-right">
+							<i class="fa fa-refresh"></i>
+						</button> </span>
+					<!-- end footer -->
 
-            <!-- Navigation item -->
-            <ul>
-              <li><a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.EcommerceRegister}</a></li>
-            </ul>
-          </#if>
+				</div>
+				<!-- END AJAX-DROPDOWN -->
+			</div>
 
-          <#if catalogQuickaddUse?has_content && catalogQuickaddUse>
-            <!-- Navigation item -->
-            <ul>
-              <li id="header-bar-quickadd"><a href="<@ofbizUrl>quickadd</@ofbizUrl>">${uiLabelMap.CommonQuickAdd}</a></li>
-            </ul>
-          </#if>
+			<!-- projects dropdown -->
+			<div class="project-context hidden-xs">
 
-          <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
-            <!-- Navigation item -->
-            <ul>
-              <li><a href="#">${uiLabelMap.EcommerceMyAccount}<!--[if IE 7]><!--></a><!--<![endif]-->
-                <!--[if lte IE 6]><table><tr><td><![endif]-->
-                  <ul>
-                    <li id="header-bar-viewprofile"><a href="<@ofbizUrl>viewprofile</@ofbizUrl>">${uiLabelMap.CommonProfile}</a></li>
-                    <li id="header-bar-ListQuotes"><a href="<@ofbizUrl>ListQuotes</@ofbizUrl>">${uiLabelMap.OrderOrderQuotes}</a></li>
-                    <li id="header-bar-ListRequests"><a href="<@ofbizUrl>ListRequests</@ofbizUrl>">${uiLabelMap.OrderRequests}</a></li>
-                    <li id="header-bar-editShoppingList"><a href="<@ofbizUrl>editShoppingList</@ofbizUrl>">${uiLabelMap.EcommerceShoppingLists}</a></li>
-                    <li id="header-bar-orderhistory"><a href="<@ofbizUrl>orderhistory</@ofbizUrl>">${uiLabelMap.EcommerceOrderHistory}</a></li>
-                  </ul>
-                <!--[if lte IE 6]></td></tr></table></a><![endif]-->
-              </li>
-            </ul>
-          </#if>
+				<span class="label">Projects:</span>
+				<span class="project-selector dropdown-toggle" data-toggle="dropdown">Recent projects <i class="fa fa-angle-down"></i></span>
 
-        </div>
-      </div>
+				<!-- Suggestion: populate this list with fetch and push technique -->
+				<ul class="dropdown-menu">
+					<li>
+						<a href="javascript:void(0);">Online e-merchant management system - attaching integration with the iOS</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">Notes on pipeline upgradee</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);">Assesment Report for merchant account</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="javascript:void(0);"><i class="fa fa-power-off"></i> Clear</a>
+					</li>
+				</ul>
+				<!-- end dropdown-menu-->
 
-      <!-- Breadcrumbs -->
-      <div class="header-breadcrumbs">
-    </div>
+			</div>
+			<!-- end projects dropdown -->
+
+			<!-- pulled right: nav area -->
+			<div class="pull-right">
+				
+				<!-- collapse menu button -->
+				<div id="hide-menu" class="btn-header pull-right">
+					<span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+				</div>
+				<!-- end collapse menu -->
+				
+				<!-- #MOBILE -->
+				<!-- Top menu profile link : this shows only when top menu is active -->
+				<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
+					<li class="">
+						<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
+							<img src="img/avatars/sunny.png" alt="John Doe" class="online">  
+						</a>
+						<ul class="dropdown-menu pull-right">
+							<li>
+								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="profile.html" class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> <u>P</u>rofile</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="login.html" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+				<!-- logout button -->
+				<div id="logout" class="btn-header transparent pull-right">
+					<span> <a href="login.html" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+				</div>
+				<!-- end logout button -->
+
+				<!-- search mobile button (this is hidden till mobile view port) -->
+				<div id="search-mobile" class="btn-header transparent pull-right">
+					<span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
+				</div>
+				<!-- end search mobile button -->
+
+				<!-- input: search field -->
+				<form action="search.html" class="header-search pull-right">
+					<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input id="search-fld" type="text" name="param" placeholder="Find reports and more" data-autocomplete="[
+					&quot;ActionScript&quot;,
+					&quot;AppleScript&quot;,
+					&quot;Asp&quot;,
+					&quot;BASIC&quot;,
+					&quot;C&quot;,
+					&quot;C++&quot;,
+					&quot;Clojure&quot;,
+					&quot;COBOL&quot;,
+					&quot;ColdFusion&quot;,
+					&quot;Erlang&quot;,
+					&quot;Fortran&quot;,
+					&quot;Groovy&quot;,
+					&quot;Haskell&quot;,
+					&quot;Java&quot;,
+					&quot;JavaScript&quot;,
+					&quot;Lisp&quot;,
+					&quot;Perl&quot;,
+					&quot;PHP&quot;,
+					&quot;Python&quot;,
+					&quot;Ruby&quot;,
+					&quot;Scala&quot;,
+					&quot;Scheme&quot;]" class="ui-autocomplete-input" autocomplete="off">
+					<button type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+					<a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
+				</form>
+				<!-- end input: search field -->
+
+				<!-- fullscreen button -->
+				<div id="fullscreen" class="btn-header transparent pull-right">
+					<span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+				</div>
+				<!-- end fullscreen button -->
+				
+				<!-- #Voice Command: Start Speech -->
+				<div id="speech-btn" class="btn-header transparent pull-right hidden-sm hidden-xs">
+					<div> 
+						<a href="javascript:void(0)" title="Voice Command" data-action="voiceCommand"><i class="fa fa-microphone"></i></a> 
+						<div class="popover bottom"><div class="arrow"></div>
+							<div class="popover-content">
+								<h4 class="vc-title">Voice command activated <br><small>Please speak clearly into the mic</small></h4>
+								<h4 class="vc-title-error text-center">
+									<i class="fa fa-microphone-slash"></i> Voice command failed
+									<br><small class="txt-color-red">Must <strong>"Allow"</strong> Microphone</small>
+									<br><small class="txt-color-red">Must have <strong>Internet Connection</strong></small>
+								</h4>
+								<a href="javascript:void(0);" class="btn btn-success" onclick="commands.help()">See Commands</a> 
+								<a href="javascript:void(0);" class="btn bg-color-purple txt-color-white" onclick="$('#speech-btn .popover').fadeOut(50);">Close Popup</a> 
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end voice command -->
+
+				<!-- multiple lang dropdown : find all flags in the flags page -->
+				<ul class="header-dropdown-list hidden-xs">
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="img/blank.gif" class="flag flag-us" alt="United States"> <span> English (US) </span> <i class="fa fa-angle-down"></i> </a>
+						<ul class="dropdown-menu pull-right">
+							<li class="active">
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-us" alt="United States"> English (US)</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-fr" alt="France"> Français</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-es" alt="Spanish"> Español</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-de" alt="German"> Deutsch</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-jp" alt="Japan"> 日本語</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-cn" alt="China"> 中文</a>
+							</li>	
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-it" alt="Italy"> Italiano</a>
+							</li>	
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-pt" alt="Portugal"> Portugal</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-ru" alt="Russia"> Русский язык</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-kr" alt="Korea"> 한국어</a>
+							</li>						
+							
+						</ul>
+					</li>
+				</ul>
+				<!-- end multiple lang -->
+
+			</div>
+			<!-- end pulled right: nav area -->
+
+		</header>

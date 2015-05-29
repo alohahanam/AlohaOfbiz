@@ -98,10 +98,3 @@ under the License.
 </div>
 <div class="clear">
 </div>
-
-<#if userLogin??>
-<script type="text/javascript">
-  var mainmenu = new DropDownMenu(jQuery('#main-navigation'));
-  var appmenu = new DropDownMenu(jQuery('#app-navigation'));
-</script>
-</#if>
