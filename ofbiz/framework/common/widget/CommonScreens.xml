@@ -315,6 +315,7 @@ under the License.
                 	<container id="content">
                 		<decorator-section-include name="body" />
                 	</container>
+                	<include-screen name="demo" />
                 </container>
                 <section>
                     <condition>
@@ -564,6 +565,18 @@ under the License.
 						<html-template location="component://smartadmin/includes/ribbon.ftl" />
 					</html>
 				</platform-specific>
+			</widgets>
+		</section>
+	</screen>
+	
+	<screen name="demo">
+		<section>
+			<widgets>
+				<!-- <platform-specific>
+					<html>
+						<html-template location="component://smartadmin/includes/layoutSetting.ftl" />
+					</html>
+				</platform-specific> -->
 			</widgets>
 		</section>
 	</screen>

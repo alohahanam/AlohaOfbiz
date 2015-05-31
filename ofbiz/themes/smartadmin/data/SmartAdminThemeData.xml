@@ -15,6 +15,7 @@
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/smartadmin/js/bootstrap/bootstrap.min.js" sequenceId="01"/>
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/smartadmin/js/app.min.js" sequenceId="04"/>
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/smartadmin/js/app.config.js" sequenceId="02"/>
+   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/smartadmin/js/demo.min.js" sequenceId="05"/>
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/smartadmin/js/smartwidgets/jarvis.widget.min.js" sequenceId="03"/>
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://smartadmin/includes/header.ftl" sequenceId="01"/>
   <VisualThemeResource visualThemeId="SMARTADMIN" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://smartadmin/includes/footer.ftl" sequenceId="02"/>

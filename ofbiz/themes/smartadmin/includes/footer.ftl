@@ -87,4 +87,4 @@
         <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
             <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
         </#list>
-    </#if>show-shortcut
+    </#if>
